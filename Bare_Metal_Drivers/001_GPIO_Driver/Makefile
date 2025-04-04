@@ -1,8 +1,8 @@
 # Compiler and flags
-CC = arm-none-eabi-gcc
+CC = arm-none-eabi-gcc -O1
 CFLAGS = -c -mcpu=cortex-m3 -mthumb -std=gnu11 
 LDFLAGS = -nostdlib -T stm32f103ls.ld
-all: main.o gpiodrive.o stm32f103Startup.o blinking.elf
+all: main.o gpiodrive.o startup.o blinking.elf
 
 
 main.o:main.c 

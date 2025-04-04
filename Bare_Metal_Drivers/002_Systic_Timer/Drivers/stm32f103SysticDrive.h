@@ -103,6 +103,29 @@ typedef struct
 
 
 
+/*******************************************************************/
+/*************************__Flash_Memory_Registers__*************************/
+/*******************************************************************/
+
+typedef struct
+{
+    volatile uint32_t ACR;      // Flash Access Control Register (FLASH_ACR)        Offset: 0x00
+    volatile uint32_t KEYR;     // Flash Key Register (FLASH_KEYR)                  Offset: 0x04
+    volatile uint32_t OPTKEYR;  // Flash Option Key Register (FLASH_OPTKEYR)        Offset: 0x08
+    volatile uint32_t SR;       // Flash Status Register (FLASH_SR)                 Offset: 0x0C
+    volatile uint32_t CR;       // Flash Control Register (FLASH_CR)                Offset: 0x10
+    volatile uint32_t AR;       // Flash Address Register (FLASH_AR)                Offset: 0x14
+    uint32_t RESERVED;          // Reserved (not used)                              Offset: 0x18
+    volatile uint32_t OBR;      // Option Byte Register (FLASH_OBR)                 Offset: 0x1C
+    volatile uint32_t WRPR;     // Write Protection Register (FLASH_WRPR)           Offset: 0x20
+} FLASH_TypeDef;
+
+// Base address of FLASH
+#define FLASH_BASE (0x40022000U)
+
+// Define FLASH pointer
+#define FLASH ((FLASH_TypeDef *) FLASH_BASE)
+
 
 
 
@@ -176,6 +199,25 @@ typedef struct
 
 #define NVIC_ISER0 *(volatile uint32_t *) 0xE000E100  //offset is 0x00
 #define NVIC_ISER1 *(volatile uint32_t *) 0xE000E104  //offset is 0x04
+	
+
+/*************************************************************************************************/
+/*************************__Systic__*************************/
+/*************************************************************************************************/
+
+// Define SysTick base address
+#define SYSTICK_BASE (0xE000E010)
+
+// Define the SysTick structure
+typedef struct {
+    volatile uint32_t CTRL;   // SysTick Control and Status Register
+    volatile uint32_t LOAD;   // SysTick Reload Value Register
+    volatile uint32_t VAL;    // SysTick Current Value Register
+    volatile uint32_t CALIB;  // SysTick Calibration Value Register
+} SysTick_TypeDef;
+
+// Define a pointer to the SysTick structure at the base address
+#define SysTick ((SysTick_TypeDef *) SYSTICK_BASE)
 
 
 
@@ -191,7 +233,10 @@ uint32_t Read_GPIO_Port (uint8_t port); //read the entire gpio input data regist
 void toggle_gpio (uint8_t port, uint8_t pin);   //toggle a single gpio pin
 void configure_gpio_interrupt(uint8_t pin, uint8_t port, uint8_t trigger_type); //enabling external interrupt
 
-
+void Delay_Sys_US (uint16_t t);
+void Delay_Sys_MS (uint16_t t);
+void systic_init(void);
+void Systic_interrupt ();
 
 
 #endif // STM32F103GPIODRIVE_H
