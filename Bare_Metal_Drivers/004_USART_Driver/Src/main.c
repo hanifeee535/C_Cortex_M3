@@ -3,20 +3,21 @@
 
  
 
-void USART3_IRQHandler  (void){
-	char message = 'c';
-	message = USART_receive (3);
-	USART_transmit (3, message);
-}
+// void USART3_IRQHandler  (void){
+// 	char message = 'c';
+// 	message = USART_receive (2);
+// 	USART_transmit (2, message);
+// }
 
 
 int main ()
 {
 	
-	init_usart_receive_interrupt (3, 115200);
-	
+	//init_usart_receive_interrupt (2, 115200);
+	init_USART(2, 9600);
 	
 	while (1){
+		USART_transmit(2, 'c');
 		
 		}
 	
