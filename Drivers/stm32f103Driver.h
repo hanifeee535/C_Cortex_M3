@@ -597,8 +597,8 @@ void NVIC_SetPriority(uint8_t irq_number, uint8_t priority_level);
 
 //low power: 
 void sleep_on_exit(void);
-static inline void enable_wfi(void);
-static inline void enable_wfe(void);
+ void enable_wfi(void);
+ void enable_wfe(void);
 
 
 #endif // STM32F103DRIVER_H

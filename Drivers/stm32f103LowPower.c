@@ -19,11 +19,11 @@ void sleep_on_exit(void){
 
 
 
-static inline void enable_wfi(void) {
+  void enable_wfi(void) {
     __asm volatile ("wfi");
 }
 
 
-static inline void enable_wfe(void) {
+ void enable_wfe(void) {
     __asm volatile ("wfi");
 }

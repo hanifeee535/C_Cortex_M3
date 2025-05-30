@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/Embedded_C/ARM_CORTEX_M3/C_Cortex_M3/Bare_Metal_Drivers/001_GPIO_Driver/library",
-      "program": "d:/Embedded_C/ARM_CORTEX_M3/C_Cortex_M3/Bare_Metal_Drivers/001_GPIO_Driver/library/build/Debug/outDebug",
+      "cwd": "d:/Embedded_C/ARM_CORTEX_M3/C_Cortex_M3/Bare_Metal_Drivers/New folder",
+      "program": "d:/Embedded_C/ARM_CORTEX_M3/C_Cortex_M3/Bare_Metal_Drivers/New folder/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
