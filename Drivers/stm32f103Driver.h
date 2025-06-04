@@ -548,6 +548,7 @@ void i2c_write (uint8_t i2c, uint8_t address, char data []);
 void i2c_start (uint8_t i2c);
 void i2c_send_address(uint8_t i2c, char address, uint8_t R_W );
 void i2c_send_data (uint8_t i2c, char data);
+uint8_t i2c_receive_data(uint8_t i2c, uint8_t ACK_NACK);
 void i2c_stop (uint8_t i2c);
 
 
@@ -576,10 +577,10 @@ void oled_send_message_5X8_font(uint8_t i2c, const char *str, uint8_t scale, uin
 void clear_oled_buffer (unsigned char oled_buffer[][128]);
 void update_oled_buffer (lcd_image_typedef *img, uint8_t img_num, unsigned char oled_buffer[][128] );
 void print_buffer (uint8_t i2c, unsigned char oled_buffer [][128]);
-void init_image_struct(lcd_image_typedef *img, const unsigned char *data, int height, int width, int x, int y);
+
 
 //Helper function:
-void int_to_str(int16_t num, char buffer[]);
+void int_to_str(int8_t num, char buffer[]);
 
 
 //System clock configuration
@@ -599,6 +600,21 @@ void NVIC_SetPriority(uint8_t irq_number, uint8_t priority_level);
 void sleep_on_exit(void);
  void enable_wfi(void);
  void enable_wfe(void);
+
+
+ //DS3231 RTC
+
+ void update_second (uint8_t i2c, uint8_t sec);
+ void update_minute (uint8_t i2c, uint8_t minute);
+ void update_hour (uint8_t i2c, uint8_t hour);
+ void update_day(uint8_t i2c, uint8_t day);
+ void update_month(uint8_t i2c, uint8_t month);
+ void update_year(uint8_t i2c, uint8_t year);
+ void update_time(uint8_t i2c, uint8_t hour, uint8_t minute, uint8_t second);
+ void update_date(uint8_t i2c, uint8_t date, uint8_t month, uint8_t year);
+ void get_time_and_date(uint8_t i2c, uint8_t *rtc_data);
+ void format_date_string(uint8_t day, uint8_t month, uint8_t year, char *date_str);
+ void format_time_string(uint8_t hour, uint8_t minute, char *time_str);
 
 
 #endif // STM32F103DRIVER_H

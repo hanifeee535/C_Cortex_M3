@@ -123,8 +123,8 @@ void i2c_init ( uint8_t i2c, uint8_t speed ){
 	}
 	else if (i2c == 2) { 
 	RCC->APB1ENR |= (1<< 22) ;
-	Config_GPIO (portB,6, output_50Mhz, af_od_output);
-	Config_GPIO (portB,7, output_50Mhz, af_od_output);
+	Config_GPIO (portB,10, output_50Mhz, af_od_output);
+	Config_GPIO (portB,11, output_50Mhz, af_od_output);
 	}
 	
 	//configuring the i2c
@@ -215,3 +215,32 @@ void i2c_write (uint8_t i2c, uint8_t address, char data []) {
 }
 
 
+//Receive I2c data
+uint8_t i2c_receive_data(uint8_t i2c, uint8_t ACK_NACK) {
+    uint8_t temp = 0;  // Variable to store received byte
+
+    if (i2c == 1) {
+        // Enable ACK ( master sends ACK after receiving the byte)
+        I2C1->CR1 |= 0x0400;
+
+        // Wait until RXNE (Receive Buffer Not Empty) is set
+        while ((I2C1->SR1 & 0x40) == 0) {}
+        // Read the received byte from Data Register
+        temp = I2C1->DR;
+        // If ACK_NACK is non-zero, disable ACK (send NACK next time)
+        if (ACK_NACK) {
+            I2C1->CR1 &= ~0x0400;
+        }
+    }
+
+    else if (i2c == 2) {
+        I2C2->CR1 |= 0x0400;                       // Enable ACK
+        while ((I2C2->SR1 & 0x40) == 0) {}         // Wait for RXNE
+        temp = I2C2->DR;                           // Read byte
+        if (ACK_NACK) {
+            I2C2->CR1 &= ~0x0400;                  // Disable ACK if needed
+        }
+    }
+
+    return temp;  // Return the received byte
+}
